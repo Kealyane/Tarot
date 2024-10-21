@@ -40,8 +40,6 @@ struct FCard
 	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Card/Textures")
 	TObjectPtr<UTexture2D> ImageRecto;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Card/Textures")
-	TObjectPtr<UTexture2D> ImageVerso;
 
 	bool operator==(const FCard& Other) const
 	{
@@ -65,6 +63,8 @@ protected:
 public:	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TArray<FCard> Deck;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Deck")
+	TObjectPtr<UTexture2D> ImageVerso;
 
 	UFUNCTION(BlueprintCallable)
 	FCard DrawCard();
