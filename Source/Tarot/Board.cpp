@@ -180,10 +180,4 @@ TArray<FCard*> ABoard::NumberEffect(EPosition CurrentPLayer, int32 line, FCard* 
 	return RemovedCard;
 }
 
-// Called when the game starts or when spawned
-void ABoard::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
 

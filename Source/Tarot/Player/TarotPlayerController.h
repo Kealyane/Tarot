@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "TarotPlayerController.generated.h"
 
+class UGameUserWidget;
 class ATarotPlayerState;
 enum class EPosition : uint8;
 struct FCard;
@@ -17,11 +18,23 @@ class TAROT_API ATarotPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
-public:	
+private:
+	TObjectPtr<UGameUserWidget> GameWidget;
+	FCard* CurrentCard;
+
+public:
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+	TSubclassOf<UGameUserWidget> GameWidgetType;
+	
 	// get card from deck
 	// is number => play
 	// is arcane => play or stash/choose
 
+	UFUNCTION()
+	void OnSlotCardClicked(FVector CoordCard);
+	
+	void ShowGameBoard();
+	
 	/**
 	 * Update UI : show card from deck
 	 * @param DeckCard 

@@ -8,7 +8,6 @@
 #include "Board.generated.h"
 
 enum class EPosition : uint8;
-class UGameUserWidget;
 
 UCLASS()
 class TAROT_API ABoard : public AActor
@@ -36,10 +35,6 @@ public:
 	bool IsLineAFamily(EPosition CurrentPLayer, int32 line, FCard* CurrentCard);
 	TArray<FCard*> FamilyEffect(EPosition CurrentPLayer, int32 line);
 	TArray<FCard*> NumberEffect(EPosition CurrentPLayer,int32 line, FCard* CurrentCard);
-	
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 
 private:
 	TArray<TArray<FCard*>> BoardGame;

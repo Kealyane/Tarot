@@ -12,6 +12,9 @@ void ATarotGameMode::PostLogin(APlayerController* NewPlayer)
 {
 	Super::PostLogin(NewPlayer);
 	
+	ATarotPlayerController* TPC = CastChecked<ATarotPlayerController>(NewPlayer);
+	TPC->ShowGameBoard();
+	
 	if (GetNumPlayers() == 2)
 	{
 		StartGame();
@@ -22,7 +25,7 @@ void ATarotGameMode::StartGame()
 {
 	TarotGameState = GetGameState<ATarotGameState>();
 	TarotGameState->CurrentPlayerTurn = EPosition::LEFT;
-	
+	StartTurn();
 }
 
 void ATarotGameMode::StartTurn()
@@ -31,7 +34,7 @@ void ATarotGameMode::StartTurn()
 
 	for (auto& PlayerState : TarotGameState->PlayerArray)
 	{
-		if(ATarotPlayerState* TarotPlayerState =CastChecked<ATarotPlayerState>(PlayerState))
+		if(ATarotPlayerState* TarotPlayerState = CastChecked<ATarotPlayerState>(PlayerState))
 		{
 			if (TarotPlayerState->PlayerPosition == TarotGameState->CurrentPlayerTurn)
 			{
