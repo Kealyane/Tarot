@@ -8,6 +8,7 @@
 
 
 struct FPocket;
+class ATarotPlayerController;
 
 UENUM(Blueprintable)
 enum class EPosition : uint8
@@ -28,9 +29,6 @@ class TAROT_API ATarotPlayerState : public APlayerState
 	GENERATED_BODY()
 
 	ATarotPlayerState();
-private:
-	EPosition PlayerPosition;
-	FPocket* PlayerPocket;
 
 protected:
 	UFUNCTION()
@@ -45,6 +43,9 @@ protected:
 	void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
 
 public:
+	EPosition PlayerPosition;
+	FPocket* PlayerPocket;
+	
 	// SCORE
 	UPROPERTY(ReplicatedUsing="OnRep_ScoreLine0")
 	int32 ScoreLine0;
@@ -68,4 +69,5 @@ public:
 	UFUNCTION(NetMulticast, Reliable)
 	void UpdatePocket(EPosition Position, bool bHasArcane);
 
+	ATarotPlayerController* GetTarotPC();
 };

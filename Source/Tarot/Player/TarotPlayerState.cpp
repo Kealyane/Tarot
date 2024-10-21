@@ -3,6 +3,7 @@
 
 #include "TarotPlayerState.h"
 #include "Net/UnrealNetwork.h"
+#include "TarotPlayerController.h"
 
 ATarotPlayerState::ATarotPlayerState()
 {
@@ -25,6 +26,11 @@ void ATarotPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 void ATarotPlayerState::ComputeTotalScore()
 {
 	TotalScore = ScoreLine0 + ScoreLine1 + ScoreLine2;
+}
+
+ATarotPlayerController* ATarotPlayerState::GetTarotPC()
+{
+	return CastChecked<ATarotPlayerController>(GetPlayerController());
 }
 
 
