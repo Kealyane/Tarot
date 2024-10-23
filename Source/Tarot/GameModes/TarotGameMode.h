@@ -17,7 +17,7 @@ class TAROT_API ATarotGameMode : public AGameMode
 	GENERATED_BODY()
 
 public:
-	void PostLogin(APlayerController* NewPlayer) override;
+
 	void StartGame();
 	/**
 	 * Pick card from deck
@@ -34,5 +34,10 @@ public:
 private:
 	TObjectPtr<ADeck> Deck;
 	TObjectPtr<ATarotGameState> TarotGameState;
-	
+
+protected:
+	UPROPERTY(EditAnywhere, Category="Deck")
+	TSubclassOf<ADeck> DeckType;
+
+	virtual void BeginPlay() override;
 };
