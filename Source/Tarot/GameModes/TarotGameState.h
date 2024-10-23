@@ -6,7 +6,9 @@
 #include "GameFramework/GameState.h"
 #include "TarotGameState.generated.h"
 
+struct FCard;
 class ATarotPlayerController;
+class ABoard;
 enum class EPosition : uint8;
 /**
  * 
@@ -20,7 +22,15 @@ public:
 	UPROPERTY(Replicated)
 	EPosition CurrentPlayerTurn;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<ABoard> BoardType;
+
+	TObjectPtr<ABoard> Board;
+
 	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	void NextPlayer();
+	void InitBoardGame();
 
+	UFUNCTION(Client, Reliable)
+	void SendCardToCurrentPlayer(FCard CardDeck);
 };

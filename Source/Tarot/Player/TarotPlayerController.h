@@ -73,6 +73,6 @@ public:
 	UFUNCTION(Server, Reliable, WithValidation)
 	void RPCServerStashArcane(int32 line, int32 col, FCard Card);
 
-private:
-	ATarotPlayerState* GetPS();
+public:
+	ATarotPlayerState* GetTarotPlayerState();
 };

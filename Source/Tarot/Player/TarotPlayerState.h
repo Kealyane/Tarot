@@ -13,8 +13,9 @@ class ATarotPlayerController;
 UENUM(Blueprintable)
 enum class EPosition : uint8
 {
-	LEFT,
-	RIGHT
+	SERVER = 0,
+	LEFT = 1,
+	RIGHT = 2
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FScoreUpdatedSignature, EPosition, Position, int32, ScoreLineIndex, int32, NewScore);
@@ -43,7 +44,9 @@ protected:
 	void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
 
 public:
+	UPROPERTY(Replicated)
 	EPosition PlayerPosition;
+	
 	FPocket* PlayerPocket;
 	
 	// SCORE
@@ -63,8 +66,6 @@ public:
 	FPocketUpdateSignature OnPocketUpdate;
 	
 	void ComputeTotalScore();
-	
-	void InitPosition(EPosition Position) { PlayerPosition = Position; }
 
 	UFUNCTION(NetMulticast, Reliable)
 	void UpdatePocket(EPosition Position, bool bHasArcane);

@@ -33,7 +33,6 @@ ATarotPlayerController* ATarotPlayerState::GetTarotPC()
 	return CastChecked<ATarotPlayerController>(GetPlayerController());
 }
 
-
 void ATarotPlayerState::OnRep_ScoreLine0()
 {
 	OnScoreUpdated.Broadcast(PlayerPosition,0,ScoreLine0);

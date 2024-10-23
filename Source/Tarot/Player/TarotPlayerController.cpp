@@ -14,6 +14,10 @@ void ATarotPlayerController::OnSlotCardClicked(FVector CoordCard)
 	{
 		if (CurrentCard->ArcaneType != EArcaneType::NONE)
 		{
+			if (GEngine)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString(TEXT("PC : CardSlotClicked")));
+			}
 			RPCServerPlayCard(CoordCard.X, CoordCard.Y, *CurrentCard);
 		}
 		else
@@ -29,6 +33,10 @@ void ATarotPlayerController::OnSlotCardClicked(FVector CoordCard)
 
 void ATarotPlayerController::ShowGameBoard()
 {
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString(TEXT("PC : ShowGameBoard")));
+	}
 	GameWidget = CreateWidget<UGameUserWidget>(this, GameWidgetType);
 	if (GameWidget)
 	{
@@ -40,13 +48,16 @@ void ATarotPlayerController::ShowGameBoard()
 	InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
 	SetInputMode(InputMode); 
 	bShowMouseCursor = true;
-	
 }
 
 void ATarotPlayerController::ShowCardFromDeck_UI_Implementation(FCard DeckCard)
 {
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString(TEXT("PC : ShowCardFromDeck_UI")));
+	}
 	CurrentCard = &DeckCard;
-	GameWidget->ShowDeckCard(GetPS()->PlayerPosition, DeckCard);
+	GameWidget->ShowDeckCard(GetTarotPlayerState()->PlayerPosition, DeckCard);
 }
 
 void ATarotPlayerController::ShowChoiceArcane_UI_Implementation(FCard PocketArcane, FCard DeckArcane)
@@ -61,7 +72,7 @@ void ATarotPlayerController::UpdateBoardCards_UI_Implementation(const TArray<FCa
 
 bool ATarotPlayerController::RPCServerPlayCard_Validate(int32 line, int32 col, FCard Card)
 {
-	if (ATarotPlayerState* PS = GetPS())
+	if (ATarotPlayerState* PS = GetTarotPlayerState())
 	{
 		if (PS->PlayerPosition == EPosition::LEFT)
 		{
@@ -74,7 +85,10 @@ bool ATarotPlayerController::RPCServerPlayCard_Validate(int32 line, int32 col, F
 
 void ATarotPlayerController::RPCServerPlayCard_Implementation(int32 line, int32 col, FCard Card)
 {
-	
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Blue, FString(TEXT("PC : RPCServerPlayCard")));
+	}
 }
 
 void ATarotPlayerController::RPCServerStashArcane_Implementation(int32 line, int32 col, FCard Card)
@@ -88,7 +102,7 @@ bool ATarotPlayerController::RPCServerStashArcane_Validate(int32 line, int32 col
 
 
 
-ATarotPlayerState* ATarotPlayerController::GetPS()
+ATarotPlayerState* ATarotPlayerController::GetTarotPlayerState()
 {
 	return CastChecked<ATarotPlayerState>(GetPlayerState<ATarotPlayerState>());
 }
